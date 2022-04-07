@@ -8,36 +8,54 @@ sono stati individuati.
 
 */
 
+
 //visualizzare in pagina 5 numeri casuali
+//1. selezionare elemento della DOM dove inserire i numeri casuali
+const numbersElement = document.querySelector('.numbers')
+//2. creare un array per salvare i 5 numeri
+const randomNumbers = []
+//3. generare i 5 numeri casuali (che non si ripetono)
+
+while (randomNumbers.length !== 5) {
+    const number = Math.floor(Math.random() * 100)
+    if (!randomNumbers.includes(number)) {
+        randomNumbers.push(number)  
+    }
+}
+
+//console.log((randomNumbers));
+
+numbersElement.innerHTML = `Memorizza questi numeri: ${randomNumbers}`
 
 
+//da qui in poi parte un timer di 30 secondi
+//1. utilizzo set timeout
+//2. dopo 30 secondi utente deve inserire uno alla volta i numeri inseriti
+setTimeout (() => {
+    //rimuovi i numeri per nasconderli all'utente
+    numbersElement.innerHTML = ''
 
-function randomNumbers() {
-    const numbersElement = document.querySelector('.numbers')
-//console.log(numberElement);
+    const userAttempts = []
+
     for (let i = 0; i < 5; i++) {
-    let randomNumbers = (Math.floor(Math.random() * 10));
+       const userNumber = Number(prompt('inserisci uno dei numeri che hai visto prima'))
+       console.log(userNumber); 
 
-    numbersElement.innerHTML += randomNumbers
-    console.log(randomNumbers);  
-}
-}
+// dopo che ha inserito i 5 numeri il software deve dire se sono inclusi in quelli generati
 
-randomNumbers()
+       if (randomNumbers.includes(userNumber) && !userAttempts.includes(userNumber)) {
+           userAttempts.push(userNumber)
+       }
+    }
 
+    console.log(userAttempts);
 
-function eliminaRandom() {
-    const numbersElement = document.querySelector('.numbers')
-    numbersElement.innerHTML = ' '
- 
-}
+    alert(`hai indovinato ${userAttempts.length} / ${randomNumbers.length} -
+    i numeri indovinati sono ${userAttempts}`)
 
-setTimeout (eliminaRandom, 3000);
+}, 3000);
 
 
-setTimeout (userNumber, 4000);
 
-function userNumber() {
-    prompt('inserisci i numeri che hai visto')
-}
+
 
